@@ -275,6 +275,16 @@ func NewRuleset(logger *zap.SugaredLogger) *Ruleset {
 	}
 	list = append(list, allowPrivilegeEscalation)
 
+	labelExists := Rule{
+		Predicate: rules.LabelExists,
+		ID:        "LabelExists",
+		Selector:  "",
+		Reason:    "Ensure a deployment has a label project",
+		Kinds:     []string{"Deployment"},
+		Points:    -1,
+	}
+	list = append(list, labelExists)
+
 	return &Ruleset{
 		Rules:  list,
 		logger: logger,
